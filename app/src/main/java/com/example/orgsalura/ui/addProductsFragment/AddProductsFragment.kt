@@ -19,26 +19,28 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.orgsalura.data.ProductsRepository
 import com.example.orgsalura.data.model.Product
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddProductsFragment : Fragment() {
+
+    private val viewModel: AddProductsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
         setContent {
-            AddProduct(findNavController())
+            AddProduct()
         }
     }
 
     @Preview
     @Composable
-    private fun AddProduct(navController: NavController? = null) {
+    private fun AddProduct() {
         Scaffold(
             topBar = {
                 TopAppBar {
@@ -88,7 +90,7 @@ class AddProductsFragment : Fragment() {
                     }
                     Button(
                         onClick = {
-                            ProductsRepository().addProduct(
+                            viewModel.addProduct(
                                 Product(
                                     name = name,
                                     description = description,

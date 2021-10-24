@@ -20,16 +20,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.orgsalura.R
-import com.example.orgsalura.data.ProductsRepository
 import com.example.orgsalura.data.model.Product
+import com.example.orgsalura.ui.addProductsFragment.AddProductsViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ProductsListFragment : Fragment() {
 
-    private val products by lazy {
-        ProductsRepository().fetchProducts()
-    }
+    private val viewModel: AddProductsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,7 +39,7 @@ class ProductsListFragment : Fragment() {
     ): View = ComposeView(requireContext()).apply {
         setContent {
             ProductsList(
-                products = products
+                products = viewModel.fetchProducts()
             )
         }
     }
