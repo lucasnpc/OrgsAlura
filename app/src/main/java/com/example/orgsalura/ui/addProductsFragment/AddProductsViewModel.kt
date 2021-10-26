@@ -10,7 +10,6 @@ import javax.inject.Inject
 class AddProductsViewModel @Inject constructor(private val repository: ProductsRepository) :
     ViewModel() {
 
-    fun fetchProducts() = repository.fetchProducts()
-
     fun addProduct(product: Product) = repository.addProduct(product = product)
+
 }

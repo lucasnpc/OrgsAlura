@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.orgsalura.data.model.Product
+import com.example.orgsalura.ui.theme.OrgsAluraTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +35,9 @@ class AddProductsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
         setContent {
-            AddProduct()
+            OrgsAluraTheme {
+                AddProduct()
+            }
         }
     }
 
@@ -48,10 +51,11 @@ class AddProductsFragment : Fragment() {
                         val (text) = createRefs()
                         Text(
                             text = "Orgs",
-                            fontSize = 17.sp,
                             modifier = Modifier.constrainAs(text) {
                                 start.linkTo(parent.start, margin = 16.dp)
-                            })
+                            },
+                            style = MaterialTheme.typography.h2
+                        )
                     }
                 }
             },

@@ -1,10 +1,10 @@
 package com.example.orgsalura.ui.productsListFragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,10 +14,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -25,12 +27,13 @@ import androidx.navigation.fragment.findNavController
 import com.example.orgsalura.R
 import com.example.orgsalura.data.model.Product
 import com.example.orgsalura.ui.addProductsFragment.AddProductsViewModel
+import com.example.orgsalura.ui.theme.OrgsAluraTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProductsListFragment : Fragment() {
 
-    private val viewModel: AddProductsViewModel by viewModels()
+    private val viewModel: ProductsListViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,9 +41,11 @@ class ProductsListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = ComposeView(requireContext()).apply {
         setContent {
-            ProductsList(
-                products = viewModel.fetchProducts()
-            )
+            OrgsAluraTheme {
+                ProductsList(
+                    products = viewModel.fetchProducts()
+                )
+            }
         }
     }
 
@@ -56,10 +61,11 @@ class ProductsListFragment : Fragment() {
                         val (text) = createRefs()
                         Text(
                             text = "Orgs",
-                            fontSize = 17.sp,
                             modifier = Modifier.constrainAs(text) {
                                 start.linkTo(parent.start, margin = 16.dp)
-                            })
+                            },
+                            style = MaterialTheme.typography.h2
+                        )
                     }
                 }
             },
@@ -69,7 +75,7 @@ class ProductsListFragment : Fragment() {
                     contentPadding = PaddingValues(8.dp),
                 ) {
                     items(products) {
-                        ProductsRow(product = it, onRowClick = { product -> cardClick(product) })
+                        ProductsRow(product = it)
                         Divider()
                     }
                 }
@@ -83,23 +89,38 @@ class ProductsListFragment : Fragment() {
     }
 
     @Composable
-    fun ProductsRow(product: Product, onRowClick: (Product) -> Unit) {
-        Row(
-            modifier = Modifier
-                .clickable(onClick = { onRowClick(product) })
-                .fillMaxWidth()
-                .padding(8.dp)
-        ) {
-            Column {
-                Text(text = product.name, fontSize = 16.sp)
-                Text(text = product.description, fontSize = 16.sp)
-                Text(text = product.price.toString(), fontSize = 16.sp)
+    fun ProductsRow(product: Product) {
+        Card(elevation = 8.dp) {
+            Row(
+                modifier = Modifier
+                    .clickable(onClick = { viewModel.cardClick(product) })
+                    .fillMaxWidth()
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    contentDescription = "ProductImage",
+                    modifier = Modifier
+                        .width(100.dp)
+                        .fillMaxHeight(),
+                    contentScale = ContentScale.Crop
+                )
+                Column(modifier = Modifier.padding(14.dp)) {
+                    Text(
+                        text = product.name,
+                        style = MaterialTheme.typography.h1,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        text = product.description,
+                        style = MaterialTheme.typography.body1,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(text = product.price.toString(), style = MaterialTheme.typography.body2)
+                }
             }
         }
-    }
-
-    private fun cardClick(product: Product) {
-        Log.e("clicke", product.toString())
     }
 }
 
