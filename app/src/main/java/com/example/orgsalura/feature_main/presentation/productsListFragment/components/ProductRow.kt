@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.orgsalura.R
-import com.example.orgsalura.data.model.Product
+import com.example.orgsalura.feature_main.domain.model.Product
 
 @Composable
 fun ProductRow(product: Product) {

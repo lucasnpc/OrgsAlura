@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.orgsalura.data.model.Product
+import com.example.orgsalura.feature_main.domain.model.Product
 
 @Composable
 fun AddProductsScreen(

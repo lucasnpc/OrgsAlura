@@ -1,4 +1,4 @@
-package com.example.orgsalura.data.model
+package com.example.orgsalura.feature_main.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -9,3 +9,5 @@ data class Product(
     val description: String = "",
     val price: Double = 0.0
 ) : Parcelable
+
+class InvalidProductException(message: String) : Exception(message)
