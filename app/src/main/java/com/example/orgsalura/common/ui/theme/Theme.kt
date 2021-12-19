@@ -1,4 +1,4 @@
-package com.example.orgsalura.ui.theme
+package com.example.orgsalura.common.ui.theme
 
 
 import androidx.compose.foundation.isSystemInDarkTheme

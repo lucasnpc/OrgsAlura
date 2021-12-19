@@ -1,4 +1,4 @@
-package com.example.orgsalura.ui.addProductsFragment
+package com.example.orgsalura.feature_main.presentation.addProductsFragment
 
 import androidx.lifecycle.ViewModel
 import com.example.orgsalura.data.ProductsRepository
