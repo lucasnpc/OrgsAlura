@@ -1,5 +1,7 @@
 package com.example.orgsalura.feature_main.presentation.addProductsFragment
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,13 +16,26 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.rememberImagePainter
+import com.example.orgsalura.R
 import com.example.orgsalura.feature_main.domain.model.Product
+import com.example.orgsalura.feature_main.presentation.addProductsFragment.components.AddImageAlertDialog
 
 @Composable
 fun AddProductsScreen(
     viewModel: AddProductsViewModel = hiltViewModel(),
     navController: NavController
 ) {
+    val imageUrl = remember {
+        mutableStateOf("")
+    }
+    val openAddImageDialog = remember {
+        mutableStateOf(false)
+    }.also {
+        if (it.value) {
+            AddImageAlertDialog(openDialog = it, imageUrl)
+        }
+    }
     Scaffold(
         topBar = {
             TopAppBar {
@@ -47,6 +62,20 @@ fun AddProductsScreen(
                 var description by remember { mutableStateOf("") }
                 var price by remember { mutableStateOf("") }
                 Column {
+                    Image(
+                        painter = rememberImagePainter(
+                            data = imageUrl,
+                            builder = {
+                                crossfade(2000)
+                                placeholder(R.drawable.add_screen_image_placeholder)
+                                error(R.drawable.add_screen_image_placeholder)
+                            }),
+                        contentDescription = "Image placeholder for add",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(200.dp)
+                            .clickable { openAddImageDialog.value = true },
+                    )
                     OutlinedTextField(
                         value = name,
                         onValueChange = { name = it },

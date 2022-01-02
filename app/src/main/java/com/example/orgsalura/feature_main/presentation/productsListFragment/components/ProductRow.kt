@@ -14,6 +14,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.orgsalura.R
 import com.example.orgsalura.feature_main.domain.model.Product
+import com.example.orgsalura.feature_main.presentation.util.extensions.brazilianCurrencyFormat
 
 @Composable
 fun ProductRow(product: Product) {
@@ -22,16 +23,17 @@ fun ProductRow(product: Product) {
             modifier = Modifier
                 .clickable(onClick = { })
                 .fillMaxWidth()
+                .height(IntrinsicSize.Min)
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_launcher_background),
                 contentDescription = "ProductImage",
                 modifier = Modifier
-                    .width(100.dp)
+                    .weight(1f)
                     .fillMaxHeight(),
                 contentScale = ContentScale.Crop
             )
-            Column(modifier = Modifier.padding(14.dp)) {
+            Column(modifier = Modifier.padding(14.dp).weight(2f)) {
                 Text(
                     text = product.name,
                     style = MaterialTheme.typography.h1,
@@ -44,7 +46,10 @@ fun ProductRow(product: Product) {
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Text(text = product.price.toString(), style = MaterialTheme.typography.body2)
+                Text(
+                    text = product.price.brazilianCurrencyFormat(),
+                    style = MaterialTheme.typography.body2
+                )
             }
         }
     }
