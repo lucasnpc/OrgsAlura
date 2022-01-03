@@ -7,7 +7,8 @@ import kotlinx.parcelize.Parcelize
 data class Product(
     val name: String = "",
     val description: String = "",
-    val price: Double = 0.0
+    val price: Double = 0.0,
+    val imageUrl: String = ""
 ) : Parcelable
 
 class InvalidProductException(message: String) : Exception(message)

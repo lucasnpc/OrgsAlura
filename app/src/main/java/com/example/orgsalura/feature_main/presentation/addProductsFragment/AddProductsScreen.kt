@@ -26,15 +26,10 @@ fun AddProductsScreen(
     viewModel: AddProductsViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val imageUrl = remember {
-        mutableStateOf("")
-    }
-    val openAddImageDialog = remember {
-        mutableStateOf(false)
-    }.also {
-        if (it.value) {
-            AddImageAlertDialog(openDialog = it, imageUrl)
-        }
+    val openDialog = viewModel.openDialog.collectAsState().value
+    val imageUrl = viewModel.imageUrl.collectAsState().value
+    if (openDialog) {
+        AddImageAlertDialog(viewModel)
     }
     Scaffold(
         topBar = {
@@ -42,7 +37,7 @@ fun AddProductsScreen(
                 ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
                     val (text) = createRefs()
                     Text(
-                        text = "Orgs",
+                        text = "Cadastrar produto",
                         modifier = Modifier.constrainAs(text) {
                             start.linkTo(parent.start, margin = 16.dp)
                         },
@@ -74,7 +69,7 @@ fun AddProductsScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(200.dp)
-                            .clickable { openAddImageDialog.value = true },
+                            .clickable { viewModel.openAddImageDialog() },
                     )
                     OutlinedTextField(
                         value = name,
@@ -104,7 +99,8 @@ fun AddProductsScreen(
                             Product(
                                 name = name,
                                 description = description,
-                                price = if (price.isNotBlank()) price.toDouble() else 0.0
+                                price = if (price.isNotBlank()) price.toDouble() else 0.0,
+                                imageUrl = imageUrl
                             )
                         )
                         navController.popBackStack()

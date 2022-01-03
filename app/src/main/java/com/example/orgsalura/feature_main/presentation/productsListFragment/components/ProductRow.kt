@@ -9,9 +9,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import coil.compose.rememberImagePainter
 import com.example.orgsalura.R
 import com.example.orgsalura.feature_main.domain.model.Product
 import com.example.orgsalura.feature_main.presentation.util.extensions.brazilianCurrencyFormat
@@ -26,14 +26,21 @@ fun ProductRow(product: Product) {
                 .height(IntrinsicSize.Min)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_launcher_background),
+                painter = rememberImagePainter(data = product.imageUrl,
+                    builder = {
+                        error(R.drawable.add_screen_image_placeholder)
+                    }),
                 contentDescription = "ProductImage",
                 modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight(),
                 contentScale = ContentScale.Crop
             )
-            Column(modifier = Modifier.padding(14.dp).weight(2f)) {
+            Column(
+                modifier = Modifier
+                    .padding(14.dp)
+                    .weight(2f)
+            ) {
                 Text(
                     text = product.name,
                     style = MaterialTheme.typography.h1,
