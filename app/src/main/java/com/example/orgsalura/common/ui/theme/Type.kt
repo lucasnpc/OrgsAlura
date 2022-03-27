@@ -34,6 +34,6 @@ val Typography = Typography(
         fontFamily = fonts,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
-        color = Color.Green
+        color = Green700
     )
 )

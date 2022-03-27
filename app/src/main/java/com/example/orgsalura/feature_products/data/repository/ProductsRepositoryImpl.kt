@@ -5,6 +5,18 @@ import com.example.orgsalura.feature_products.domain.repository.ProductsReposito
 
 class ProductsRepositoryImpl(private val products: ArrayList<Product>) : ProductsRepository {
 
+
+    init {
+        addProduct(
+            Product(
+                name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+                description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean iaculis justo in quam feugiat, a congue dui consectetur. Quisque facilisis metus at odio elementum, quis rutrum eros aliquam",
+                price = 123.0,
+                imageUrl = ""
+            )
+        )
+    }
+
     override fun addProduct(product: Product) {
         products.add(product)
     }

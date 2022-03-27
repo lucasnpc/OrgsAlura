@@ -44,7 +44,6 @@ class MainActivity : ComponentActivity() {
                         ) {
                             it.arguments?.getString("productId")?.let { it1 ->
                                 ProductDetailsScreen(
-                                    navController = navController,
                                     productId = it1
                                 )
                             } ?: Toast.makeText(
