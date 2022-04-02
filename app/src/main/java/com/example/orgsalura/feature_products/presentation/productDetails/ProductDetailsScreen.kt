@@ -11,7 +11,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.orgsalura.feature_products.presentation.productDetails.components.DetailsHeander
+import com.example.orgsalura.feature_products.presentation.productDetails.components.DetailsHeader
 
 @Composable
 fun ProductDetailsScreen(
@@ -22,7 +22,7 @@ fun ProductDetailsScreen(
 
     Scaffold {
         Column {
-            DetailsHeander(product = product)
+            DetailsHeader(product = product)
             Text(
                 text = product.name, style = TextStyle(
                     color = Color.DarkGray, fontSize = 28.sp

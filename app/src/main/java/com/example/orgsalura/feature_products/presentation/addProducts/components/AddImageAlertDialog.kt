@@ -9,12 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.example.orgsalura.R
 import com.example.orgsalura.feature_products.presentation.addProducts.AddProductsViewModel
 
 @Composable
-fun AddImageAlertDialog(viewModel: AddProductsViewModel) {
+fun AddImageAlertDialog(viewModel: AddProductsViewModel = hiltViewModel(), imageUrl: String) {
     AlertDialog(
         onDismissRequest = {
             viewModel.closeAlertDialog()
@@ -22,7 +23,7 @@ fun AddImageAlertDialog(viewModel: AddProductsViewModel) {
         title = {
             Image(
                 painter = rememberImagePainter(
-                    data = viewModel.imageUrl.value,
+                    data = imageUrl,
                     builder = {
                         crossfade(1000)
                         placeholder(R.drawable.add_screen_image_placeholder)
@@ -36,7 +37,7 @@ fun AddImageAlertDialog(viewModel: AddProductsViewModel) {
         },
         text = {
             OutlinedTextField(
-                value = viewModel.imageUrl.value,
+                value = imageUrl,
                 onValueChange = { viewModel.addImageUrl(it) },
                 label = {
                     Text(

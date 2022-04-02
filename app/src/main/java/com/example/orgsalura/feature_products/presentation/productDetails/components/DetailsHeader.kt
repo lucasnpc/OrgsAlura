@@ -18,7 +18,7 @@ import com.example.orgsalura.feature_products.domain.model.Product
 import com.example.orgsalura.feature_products.presentation.util.extensions.brazilianCurrencyFormat
 
 @Composable
-fun DetailsHeander(product: Product) {
+fun DetailsHeader(product: Product) {
     Box(
         modifier = Modifier
             .height(220.dp)

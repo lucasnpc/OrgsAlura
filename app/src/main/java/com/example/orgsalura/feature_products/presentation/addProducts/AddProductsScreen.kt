@@ -29,7 +29,7 @@ fun AddProductsScreen(
     val openDialog = viewModel.openDialog.collectAsState().value
     val imageUrl = viewModel.imageUrl.collectAsState().value
     if (openDialog) {
-        AddImageAlertDialog(viewModel)
+        AddImageAlertDialog(imageUrl = imageUrl)
     }
     Scaffold(
         topBar = {
