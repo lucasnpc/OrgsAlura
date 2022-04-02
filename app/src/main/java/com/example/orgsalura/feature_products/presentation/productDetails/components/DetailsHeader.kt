@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
@@ -20,7 +21,7 @@ import com.example.orgsalura.feature_products.presentation.util.extensions.brazi
 fun DetailsHeander(product: Product) {
     Box(
         modifier = Modifier
-            .height(200.dp)
+            .height(220.dp)
             .fillMaxWidth()
     ) {
         Image(
@@ -30,7 +31,8 @@ fun DetailsHeander(product: Product) {
             contentDescription = "Product Image",
             modifier = Modifier
                 .height(200.dp)
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            contentScale = ContentScale.Crop
         )
         Box(
             modifier = Modifier
