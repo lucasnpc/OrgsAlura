@@ -1,29 +1,18 @@
 package com.example.orgsalura.feature_products.data.repository
 
+import com.example.orgsalura.feature_products.data.repository.local.dao.ProductDao
 import com.example.orgsalura.feature_products.domain.model.Product
 import com.example.orgsalura.feature_products.domain.repository.ProductsRepository
 
-class ProductsRepositoryImpl(private val products: ArrayList<Product>) : ProductsRepository {
-
-
-    init {
-        addProduct(
-            Product(
-                name = "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean iaculis justo in quam feugiat, a congue dui consectetur. Quisque facilisis metus at odio elementum, quis rutrum eros aliquam",
-                price = 123.0,
-                imageUrl = ""
-            )
-        )
-    }
+class ProductsRepositoryImpl(private val db: ProductDao) : ProductsRepository {
 
     override fun addProduct(product: Product) {
-        products.add(product)
+        db.insertProduct(product)
     }
 
-    override fun fetchProducts() = products
+    override fun fetchProducts() = db.fetchAll()
 
-    override fun getProductById(productId: String): Product =
-        products.filter { product -> product.name == productId }[0]
+    override fun getProductById(productId: Int): Product =
+        db.getProductById(productId)
 
 }

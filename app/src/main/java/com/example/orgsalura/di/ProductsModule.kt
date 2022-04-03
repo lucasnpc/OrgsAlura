@@ -1,6 +1,9 @@
 package com.example.orgsalura.di
 
+import android.app.Application
+import androidx.room.Room
 import com.example.orgsalura.feature_products.data.repository.ProductsRepositoryImpl
+import com.example.orgsalura.feature_products.data.repository.local.AppDatabase
 import com.example.orgsalura.feature_products.domain.repository.ProductsRepository
 import com.example.orgsalura.feature_products.domain.useCase.AddProductUseCase
 import com.example.orgsalura.feature_products.domain.useCase.GetProductByIdUseCase
@@ -16,10 +19,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object ProductsModule {
 
+    @Provides
+    @Singleton
+    fun provideAppDatabase(app: Application): AppDatabase =
+        Room.databaseBuilder(app, AppDatabase::class.java, AppDatabase.DATABASE_NAME).build()
+
     @Singleton
     @Provides
-    fun provideProductsRepository(): ProductsRepository =
-        ProductsRepositoryImpl(products = ArrayList())
+    fun provideProductsRepository(db: AppDatabase): ProductsRepository =
+        ProductsRepositoryImpl(db = db.productDao)
 
     @Singleton
     @Provides

@@ -20,7 +20,7 @@ fun ProductsListScreen(
     viewModel: ProductsListViewModel = hiltViewModel(),
     navController: NavController
 ) {
-    val products = viewModel.fetchProducts()
+    val state = viewModel.state.value
     Scaffold(
         topBar = {
             TopAppBar {
@@ -41,7 +41,7 @@ fun ProductsListScreen(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(8.dp),
             ) {
-                items(products) {
+                items(state.products) {
                     ProductRow(
                         product = it
                     ) { viewModel.openProductDetailsScreen(navController = navController, it) }

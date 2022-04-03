@@ -15,10 +15,9 @@ import com.example.orgsalura.feature_products.presentation.productDetails.compon
 
 @Composable
 fun ProductDetailsScreen(
-    viewModel: ProductDetailsViewModel = hiltViewModel(),
-    productId: String
+    viewModel: ProductDetailsViewModel = hiltViewModel()
 ) {
-    val product = viewModel.getProductById(productId = productId)
+    val product = viewModel.product.value
 
     Scaffold {
         Column {

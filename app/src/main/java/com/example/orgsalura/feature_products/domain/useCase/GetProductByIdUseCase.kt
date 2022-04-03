@@ -4,5 +4,5 @@ import com.example.orgsalura.feature_products.domain.repository.ProductsReposito
 
 class GetProductByIdUseCase(private val repository: ProductsRepository) {
 
-    operator fun invoke(productId: String)  = repository.getProductById(productId)
+    operator fun invoke(productId: Int)  = repository.getProductById(productId)
 }

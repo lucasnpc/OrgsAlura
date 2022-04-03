@@ -1,7 +1,6 @@
 package com.example.orgsalura.feature_products.presentation
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
@@ -40,17 +39,12 @@ class MainActivity : ComponentActivity() {
                         composable(
                             route = Screen.ProductDetailsScreen.route + "/{productId}",
                             arguments = listOf(
-                                navArgument("productId") { type = NavType.StringType })
+                                navArgument("productId") {
+                                    type = NavType.IntType
+                                    defaultValue = -1
+                                })
                         ) {
-                            it.arguments?.getString("productId")?.let { it1 ->
-                                ProductDetailsScreen(
-                                    productId = it1
-                                )
-                            } ?: Toast.makeText(
-                                this@MainActivity,
-                                "Alguma coisa deu errado!!!",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            ProductDetailsScreen()
                         }
                     }
                 }
